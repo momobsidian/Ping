@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <title>Self Ping Website</title>
+</head>
+<body>
+  <h1>Self Ping Website 🖥️</h1>
+  <p>Server active হলে প্রতি 5 মিনিটে নিজেকেই ping করবে।</p>
+
+  <script>
+    async function pingServer() {
+      try {
+        await fetch("/ping");
+        console.log("Frontend ping executed at", new Date());
+      } catch (err) {
+        console.log("Frontend ping failed:", err);
+      }
+    }
+
+    // Ping every 5 minutes
+    setInterval(pingServer, 5 * 60 * 1000);
+    // Initial ping
+    pingServer();
+  </script>
+</body>
+</html>
