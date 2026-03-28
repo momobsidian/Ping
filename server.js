@@ -1,9 +1,7 @@
-// server.js
 import express from "express";
-import fetch from "node-fetch"; // node 18+ fetch built-in
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 // Serve static frontend
 app.use(express.static('public'));
@@ -17,12 +15,13 @@ app.get("/ping", (req, res) => {
 // Self-ping (every 5 min)
 setInterval(async () => {
   try {
+    // Node 18+ built-in fetch
     await fetch(`http://localhost:${PORT}/ping`);
     console.log("Self-ping executed at", new Date());
   } catch (err) {
     console.log("Ping failed:", err);
   }
-}, 5 * 60 * 1000); // 5 minutes
+}, 5 * 60 * 1000); // 5 min
 
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
